@@ -5,7 +5,6 @@
 ## 🌟 博客特色
 
 - **现代化界面设计**：采用毛玻璃效果和渐变色彩，提供美观的视觉体验
-- **响应式布局**：完美适配桌面端和移动端设备
 - **Markdown支持**：使用Markdown格式编写文章，支持代码高亮
 - **自动文件扫描**：自动扫描`public/md`目录中的Markdown文件并生成文章列表
 - **动态路由**：根据文件名自动生成文章路由
@@ -57,12 +56,3 @@ vue-blog/
 2. 启动开发服务器：`npm run dev`
 3. 在`public/md/`目录下添加Markdown文件
 4. 访问`http://localhost:5173`查看博客
-
-## 📞 联系方式
-
-- **GitHub**：[tianmen114](https://github.com/tianmen114)
-- **博客地址**：https://github.com/tianmen114/vue-tianmen
-
----
-
-*感谢您的访问，希望这个博客能为您提供有价值的内容！*
