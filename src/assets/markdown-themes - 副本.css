@@ -1,0 +1,519 @@
+/* Markdown 主题系统 */
+
+/* 默认主题 */
+.markdown-theme-default {
+  --md-bg: #ffffff;
+  --md-text: #374151;
+  --md-heading: #111827;
+  --md-link: #3b82f6;
+  --md-link-hover: #1d4ed8;
+  --md-code-bg: #f3f4f6;
+  --md-code-text: #1f2937;
+  --md-blockquote-bg: #f9fafb;
+  --md-blockquote-border: #e5e7eb;
+  --md-table-border: #e5e7eb;
+  --md-table-header-bg: #f9fafb;
+  --md-hr: #e5e7eb;
+}
+
+/* 深色主题 */
+.markdown-theme-dark {
+  --md-bg: #1f2937;
+  --md-text: #f9fafb;
+  --md-heading: #ffffff;
+  --md-link: #60a5fa;
+  --md-link-hover: #93c5fd;
+  --md-code-bg: #374151;
+  --md-code-text: #f9fafb;
+  --md-blockquote-bg: #374151;
+  --md-blockquote-border: #4b5563;
+  --md-table-border: #4b5563;
+  --md-table-header-bg: #374151;
+  --md-hr: #4b5563;
+}
+
+/* 粉色主题 */
+.markdown-theme-pink {
+  --md-bg: #fdf2f8;
+  --md-text: #581c87;
+  --md-heading: #831843;
+  --md-link: #ec4899;
+  --md-link-hover: #be185d;
+  --md-code-bg: #fce7f3;
+  --md-code-text: #831843;
+  --md-blockquote-bg: #fdf2f8;
+  --md-blockquote-border: #f9a8d4;
+  --md-table-border: #f9a8d4;
+  --md-table-header-bg: #fce7f3;
+  --md-hr: #f9a8d4;
+}
+
+/* 通用 Markdown 样式 */
+.markdown-body {
+  background: var(--md-bg);
+  color: var(--md-text);
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  color: var(--md-heading);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.markdown-body h1 {
+  font-size: 2.25rem;
+  border-bottom: 2px solid var(--md-hr);
+  padding-bottom: 0.5rem;
+}
+
+.markdown-body h2 {
+  font-size: 1.875rem;
+  border-bottom: 1px solid var(--md-hr);
+  padding-bottom: 0.25rem;
+}
+
+.markdown-body h3 {
+  font-size: 1.5rem;
+}
+
+.markdown-body h4 {
+  font-size: 1.25rem;
+}
+
+.markdown-body h5 {
+  font-size: 1.125rem;
+}
+
+.markdown-body h6 {
+  font-size: 1rem;
+}
+
+.markdown-body p {
+  margin-bottom: 1rem;
+}
+
+.markdown-body a {
+  color: var(--md-link);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.markdown-body a:hover {
+  color: var(--md-link-hover);
+  border-bottom-color: var(--md-link-hover);
+}
+
+.markdown-body strong {
+  font-weight: 600;
+  color: var(--md-heading);
+}
+
+.markdown-body em {
+  font-style: italic;
+}
+
+.markdown-body code {
+  background: var(--md-code-bg);
+  color: var(--md-code-text);
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.markdown-body pre {
+  background: var(--md-code-bg);
+  color: var(--md-code-text);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+  border: 1px solid var(--md-hr);
+}
+
+.markdown-body pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.markdown-body blockquote {
+  background: var(--md-blockquote-bg);
+  border-left: 4px solid var(--md-blockquote-border);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.markdown-body blockquote p {
+  margin: 0;
+  font-style: italic;
+  color: var(--md-text);
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+.markdown-body li {
+  margin-bottom: 0.5rem;
+}
+
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  border: 1px solid var(--md-table-border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.markdown-body th,
+.markdown-body td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--md-table-border);
+}
+
+.markdown-body th {
+  background: var(--md-table-header-bg);
+  font-weight: 600;
+  color: var(--md-heading);
+}
+
+.markdown-body tr:hover {
+  background: var(--md-blockquote-bg);
+}
+
+.markdown-body hr {
+  border: none;
+  height: 1px;
+  background: var(--md-hr);
+  margin: 2rem 0;
+}
+
+.markdown-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}
+
+/* 代码复制组件主题样式 */
+.markdown-theme-default .code-block-wrapper {
+  position: relative;
+}
+
+.markdown-theme-default .code-header {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.markdown-theme-default .language-label {
+  color: #6b7280;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: rgba(248, 250, 252, 0.9);
+  backdrop-filter: blur(4px);
+  border-radius: 4px;
+  padding: 2px 6px;
+  border: 1px solid rgba(209, 213, 219, 0.5);
+}
+
+.markdown-theme-default .copy-button {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #d1d5db;
+  color: #374151;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  width: 24px;
+  height: 24px;
+}
+
+.markdown-theme-default .copy-button:hover {
+  background: rgba(243, 244, 246, 0.9);
+  border-color: #9ca3af;
+  transform: scale(1.05);
+}
+
+.markdown-theme-default .copy-button.copied {
+  background: #10b981;
+  border-color: #10b981;
+  color: white;
+}
+
+.markdown-theme-default .copy-button.copying {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.markdown-theme-default .copy-icon {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2;
+}
+
+.markdown-theme-dark .code-block-wrapper {
+  position: relative;
+}
+
+.markdown-theme-dark .code-header {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.markdown-theme-dark .language-label {
+  color: #9ca3af;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: rgba(55, 65, 81, 0.9);
+  backdrop-filter: blur(4px);
+  border-radius: 4px;
+  padding: 2px 6px;
+  border: 1px solid rgba(75, 85, 99, 0.5);
+}
+
+.markdown-theme-dark .copy-button {
+  background: rgba(75, 85, 99, 0.9);
+  border: 1px solid #6b7280;
+  color: #f9fafb;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  width: 24px;
+  height: 24px;
+}
+
+.markdown-theme-dark .copy-button:hover {
+  background: rgba(107, 114, 128, 0.9);
+  border-color: #9ca3af;
+  transform: scale(1.05);
+}
+
+.markdown-theme-dark .copy-button.copied {
+  background: #10b981;
+  border-color: #10b981;
+  color: white;
+}
+
+.markdown-theme-dark .copy-button.copying {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.markdown-theme-dark .copy-icon {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2;
+}
+
+.markdown-theme-pink .code-block-wrapper {
+  position: relative;
+}
+
+.markdown-theme-pink .code-header {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.markdown-theme-pink .language-label {
+  color: #be185d;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: rgba(253, 242, 248, 0.9);
+  backdrop-filter: blur(4px);
+  border-radius: 4px;
+  padding: 2px 6px;
+  border: 1px solid rgba(249, 168, 212, 0.5);
+}
+
+.markdown-theme-pink .copy-button {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #f9a8d4;
+  color: #be185d;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  width: 24px;
+  height: 24px;
+}
+
+.markdown-theme-pink .copy-button:hover {
+  background: rgba(253, 242, 248, 0.9);
+  border-color: #ec4899;
+  transform: scale(1.05);
+}
+
+.markdown-theme-pink .copy-button.copied {
+  background: #ec4899;
+  border-color: #ec4899;
+  color: white;
+}
+
+.markdown-theme-pink .copy-button.copying {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.markdown-theme-pink .copy-icon {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2;
+}
+
+.markdown-theme-default .code-header {
+  background: #f8fafc;
+  border-bottom-color: #e5e7eb;
+}
+
+.markdown-theme-default .language-label {
+  color: #6b7280;
+}
+
+.markdown-theme-default .copy-button {
+  background: white;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.markdown-theme-default .copy-button:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.markdown-theme-default .copy-button.copied {
+  background: #10b981;
+  border-color: #10b981;
+  color: white;
+}
+
+
+
+.markdown-theme-dark .code-header {
+  background: #374151;
+  border-bottom-color: #4b5563;
+}
+
+.markdown-theme-dark .language-label {
+  color: #9ca3af;
+}
+
+.markdown-theme-dark .copy-button {
+  background: #4b5563;
+  border-color: #6b7280;
+  color: #f9fafb;
+}
+
+.markdown-theme-dark .copy-button:hover {
+  background: #6b7280;
+  border-color: #9ca3af;
+}
+
+.markdown-theme-dark .copy-button.copied {
+  background: #10b981;
+  border-color: #10b981;
+  color: white;
+}
+
+
+
+.markdown-theme-pink .code-header {
+  background: #fdf2f8;
+  border-bottom-color: #fce7f3;
+}
+
+.markdown-theme-pink .language-label {
+  color: #be185d;
+}
+
+.markdown-theme-pink .copy-button {
+  background: white;
+  border-color: #f9a8d4;
+  color: #be185d;
+}
+
+.markdown-theme-pink .copy-button:hover {
+  background: #fdf2f8;
+  border-color: #ec4899;
+}
+
+.markdown-theme-pink .copy-button.copied {
+  background: #ec4899;
+  border-color: #ec4899;
+  color: white;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .markdown-body {
+    font-size: 1rem;
+  }
+  
+  .markdown-body h1 {
+    font-size: 1.875rem;
+  }
+  
+  .markdown-body h2 {
+    font-size: 1.5rem;
+  }
+  
+  .markdown-body h3 {
+    font-size: 1.25rem;
+  }
+  
+  .markdown-body pre {
+    padding: 0.75rem;
+    font-size: 0.8rem;
+  }
+  
+  .markdown-body table {
+    font-size: 0.875rem;
+  }
+  
+  .markdown-body th,
+  .markdown-body td {
+    padding: 0.5rem;
+  }
+}
