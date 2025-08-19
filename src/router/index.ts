@@ -4,7 +4,7 @@ import MdArticleDetail from '@/components/MdArticleDetail.vue'
 import home from '@/components/home.vue'
 
 const routes = [
-  { path: '/', redirect: '/home' },
+  { path: '/', component: home  },
   { path: '/home', name: 'home', component: home },
   { path: '/search', component: search },
   { path: '/article/:id', name: 'article', component: MdArticleDetail, props: true },
