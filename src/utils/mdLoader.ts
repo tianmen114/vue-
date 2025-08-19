@@ -226,3 +226,28 @@ export function searchMdFiles(query: string): MdFile[] {
     file.tags.some(tag => tag.toLowerCase().includes(lowerQuery))
   )
 }
+
+// 根据标题获取文件
+export function getMdFileByTitle(title: string): MdFile | undefined {
+  // 首先尝试精确匹配
+  let file = mdFiles.value.find(file => file.title === title)
+  
+  // 如果没有找到，尝试通过标题生成ID进行匹配
+  if (!file) {
+    const generatedId = generateFileIdFromTitle(title)
+    file = mdFiles.value.find(file => file.id === generatedId)
+  }
+  
+  return file
+}
+
+// 根据标题生成ID（用于URL）
+export function generateFileIdFromTitle(title: string): string {
+  if (!title) {
+    // 如果没有标题，生成一个随机ID
+    return 'article-' + Math.random().toString(36).substr(2, 9)
+  }
+  
+  // 使用与generateFileId相同的逻辑处理标题
+  return title.replace(/[^a-zA-Z0-9_-]/g, '-').toLowerCase()
+}

@@ -1,5 +1,6 @@
 <template>
-<div class="simple-article-list">
+  <transition name="page" mode="out-in">
+    <div class="simple-article-list">
   <div class="loading" v-if="loading">
     加载中...
   </div>
@@ -62,6 +63,7 @@
     </div>
   </div>
 </div>
+  </transition>
 </template>
 
 <script setup lang="ts">
@@ -444,5 +446,31 @@ button:hover {
   bottom: 11px;
   left: 5%;
   color:rgba(26, 28, 26, 0.259)
+}
+
+/* 页面过渡动画 */
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.5s ease;
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-enter-to {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
 }
 </style>

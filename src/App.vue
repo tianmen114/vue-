@@ -98,15 +98,21 @@
       </div>
     </div>
   </div>
-  <nav class="nav">
+  <nav
+    class="nav"
+    ref="nav"
+    :class="{ 'nav-hidden': !isNavVisible, 'nav-visible': isAtTop }"
+  >
     <ul>
       <span class="tiao">
-        <li><RouterLink to="/" ref="t1">首页</RouterLink></li>
-        <li><RouterLink to="/archive" ref="t1">归档</RouterLink></li>
-        <li><RouterLink to="/about" ref="t1">关于</RouterLink></li>
-        <li><RouterLink to="/search" ref="t1">音乐</RouterLink></li>
-        <li><RouterLink to="/video" ref="t1">视频</RouterLink></li>
+        <li><RouterLink to="/" ref="t1" class="nav-link">首页</RouterLink></li>
+        <li><RouterLink to="/archive" ref="t1" class="nav-link">归档</RouterLink></li>
+        <li><RouterLink to="/about" ref="t1" class="nav-link">关于</RouterLink></li>
+        <li><RouterLink to="/search" ref="t1" class="nav-link">音乐</RouterLink></li>
+        <li><RouterLink to="/picture" ref="t1" class="nav-link">图库</RouterLink></li>
+        <li><RouterLink to="/dongman" ref="t1" class="nav-link">追番小屋</RouterLink></li>
       </span>
+      <!-- <fangwen class="fanagwen"/> -->
       <!-- 搜索框 -->
       <div class="search-container">
         <input
@@ -148,6 +154,20 @@
       <button class="beijing" @click="click2" ref="btn">页面设置</button>
     </ul>
   </nav>
+  <div class="bzhi" v-if="route.path === '/home'">
+    <span>{{ displayText }}</span>
+    <div class="scroll-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3000 3000">
+        <path
+          fill="currentColor"
+          fill-opacity="1"
+          fill-rule="nonzero"
+          d="M760.890625 1169.878906C746.394531 1155.390625 746.394531 1131.878906 760.890625 1117.390625C775.382812 1102.890625 798.890625 1102.890625 813.386719 1117.390625L1500.03125 1803.921875L2186.609375 1117.328125C2201.109375 1102.839844 2224.621094 1102.839844 2239.109375 1117.328125C2253.609375 1131.828125 2253.609375 1155.328125 2239.109375 1169.828125L1526.28125 1882.671875C1511.78125 1897.160156 1488.269531 1897.160156 1473.78125 1882.671875L760.890625 1169.878906"
+        />
+      </svg>
+    </div>
+  </div>
+    <div class="jiange"></div>
   <div class="app-container">
     <div class="cover"></div>
     <div class="main-layout">
@@ -162,12 +182,14 @@
 <script setup lang="ts">
 
 // 移除硬编码的路径引用，使用标准的Vue类型定义
-import { ref, type Ref, onMounted, onBeforeUnmount, watch } from 'vue';
+import fangwen from './components/fangwen.vue';
+import { ref, type Ref, onMounted, onBeforeUnmount, watch, computed } from 'vue';
 import { useSpring } from 'motion-v'
 import BackToTop from './components/BackToTop.vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { mdFiles, searchMdFiles } from '@/utils/mdLoader';
 import Sidebar from './components/Sidebar.vue'
+import loading from './components/loading.vue';
 // setInterval(() => {
 //   console.log("By 😘 tianmen:https://space.bilibili.com/660045843")
 // }, 2000)
@@ -187,10 +209,12 @@ const blur = ref(0)
 
 // 搜索相关
 const router = useRouter()
+const route = useRoute()
 const searchQuery = ref('')
 const searchResults = ref<any[]>([])
 const showSearchResults = ref(false)
 import { motion, useScroll } from "motion-v"
+import gg from './src/components/gg.vue';
 
 
 const { scrollYProgress } = useScroll()
@@ -216,6 +240,7 @@ const scrollIndicator = {
 // 滚动相关状态
 const scrollProgress = ref(0)
 const isNavVisible = ref(true)
+const isAtTop = ref(true)
 const lastScrollTop = ref(0)
 const totalWords = ref(0)
 const viewCount = ref(0)
@@ -342,7 +367,6 @@ const carouselImages = ref([
   { src: 'https://tu.tianmen15qwq.dpdns.org/file/5d58e79678af42d5e6f70.png', alt: '图片1' },
   { src: 'https://tu.tianmen15qwq.dpdns.org/file/AgACAgUAAyEGAAScvBs8AAMgaJIwuu2BupiAj2KCt9o2R8ZgSrMAAtLCMRv4KpBU7ySvnKnwBCsBAAMCAAN3AAM2BA.png', alt: '图片2' },
   { src: 'https://tu.tianmen15qwq.dpdns.org/file/AgACAgUAAyEGAAScvBs8AAMnaJyT9wKvMrfcWQAB1tCDWhCAL5JuAALPxTEb7jfpVCD_GgQSGLVXAQADAgADdwADNgQ.png', alt: '图片3' },
-  { src: 'https://tu.tianmen15qwq.dpdns.org/file/d4a89f102989e0e257c55.png', alt: '图片4' },
   { src: 'https://tu.tianmen15qwq.dpdns.org/file/AgACAgUAAyEGAAScvBs8AAMGaISYKZzqVWeZaNuXflBWCs-ZFSMAAtDDMRsIzChU9AQj0_QoW9YBAAMCAAN3AAM2BA.png', alt: '图片5' }
 ])
 
@@ -432,6 +456,9 @@ function handleScroll() {
     isNavVisible.value = true
   }
 
+  // 检查是否在页面顶部
+  isAtTop.value = scrollTop <= 10
+
   lastScrollTop.value = scrollTop
 }
 
@@ -493,16 +520,158 @@ onBeforeUnmount(() => {
 //   event.preventDefault(); // 阻止默认的右键菜单行为
 //   alert('右键被点击了！');
 // });
+//打字
+const texts = ["欢迎来到tianmen的博客 ✨", "记录学习与生活 💻"];
+const displayText = ref("");
+let index = 0;
+let charIndex = 0;
+let isDeleting = false;
+
+function type() {
+  const current = texts[index];
+
+  if (!isDeleting && charIndex < current.length) {
+    displayText.value = current.substring(0, charIndex + 1);
+    charIndex++;
+    setTimeout(type, 100);
+  } else if (isDeleting && charIndex > 0) {
+    displayText.value = current.substring(0, charIndex - 1);
+    charIndex--;
+    setTimeout(type, 50);
+  } else {
+    if (!isDeleting) {
+      isDeleting = true;
+      setTimeout(type, 1000); // 停顿再删除
+    } else {
+      isDeleting = false;
+      index = (index + 1) % texts.length;
+      setTimeout(type, 200);
+    }
+  }
+}
+
+onMounted(() => {
+  type();
+});
+onMounted(() => {
+  // 其他现有代码...
+
+  // 新增滚动监听，用于SVG动画效果
+  const handleScrollForSVG = () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrollTop > 100) {
+      document.body.classList.add('scrolled');
+    } else {
+      document.body.classList.remove('scrolled');
+    }
+  };
+
+  window.addEventListener('scroll', handleScrollForSVG);
+
+  // 清理函数
+  onBeforeUnmount(() => {
+    window.removeEventListener('scroll', handleScrollForSVG);
+  });
+});
+
+onMounted(() => {
+  // 获取SVG元素
+  const svgElement = document.querySelector<SVGSVGElement>('.scroll-icon');
+
+  if (svgElement) {
+    // 设置初始样式
+    svgElement.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+
+    // 滚动处理函数
+    const handleSvgScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      // 当向下滚动超过50px时隐藏SVG
+      if (scrollTop > 50) {
+        svgElement.style.opacity = '0';
+        svgElement.style.transform = 'translateY(20px)';
+      } else {
+        // 回到顶部区域时显示SVG
+        svgElement.style.opacity = '1';
+        svgElement.style.transform = 'translateY(0)';
+      }
+    };
+
+    // 初始执行一次
+    handleSvgScroll();
+
+    // 添加滚动监听
+    window.addEventListener('scroll', handleSvgScroll);
+
+    // 组件卸载时清理
+    onBeforeUnmount(() => {
+      window.removeEventListener('scroll', handleSvgScroll);
+    });
+  }
+});
+const nav =ref()
+const scrollTop =nav.value
+function handleScroll1() {
+  // 更新当前滚动位置
+  scrollTop.value = window.pageYOffset || document.documentElement.scrollTop;
+  // 记录上次滚动位置
+  lastScrollTop.value = scrollTop.value;
+}
+const navbarClass = computed(() => {
+  const classes = [];
+
+  // 滚动超过50px时添加"scrolled"类
+  if (nav.value > 50) {
+    classes.push('scrolled');
+  }
+
+  // 滚动超过300px时添加"deep-scrolled"类
+  if (nav.value > 300) {
+    classes.push('deep-scrolled');
+  }
+
+  // 向下滚动且超过100px时添加"hidden"类
+  if (nav.value > lastScrollTop.value && scrollTop.value > 100) {
+    classes.push('hidden');
+  }
+
+  return classes;
+});
+
+
+// 回到顶部方法
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+// 挂载时添加事件监听
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+  // 初始触发一次，设置初始状态
+  handleScroll();
+});
+
+// 卸载时移除事件监听
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
 </script>
 <style>
+.fanagwen {
+  position: absolute;
+  top: 120%;
+  left: 14%;
+}
 .hover:hover {
   transform: rotate(360deg);
 }
 .main-layout {
   display: flex;
   width: 100%;
-  min-height: 100vh;
-  padding-top: 60px; /* 为顶部导航栏留出空间 */
+  min-height: 100vh; /* 为顶部导航栏和公告栏留出空间 */
 }
 
 .main-layout > :nth-child(2) {
@@ -842,20 +1011,84 @@ body::before {
   box-sizing: border-box;
 }
 
+/* 基础导航样式 */
 .nav {
-  left: 10%;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-left: 10%;
-  height: 60px;
-  background-color: rgba(255, 255, 255, 0.516);
-  z-index: 1000;
-  border-radius: 60px 60px 60px 60px;
   width: 80%;
-  padding-left: 0;
-  backdrop-filter: blur(10px);
-  border: none transparent;
-  outline: none;
+  height: 60px;
+  padding: 0 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 60px;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: all 0.5s ease;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* 隐藏状态 */
+.nav-hidden {
+  transform: translate(-50%, -120%);
+  opacity: 0;
+  transition: all 0.6s ease;
+}
+
+/* 显示状态 */
+.nav-visible {
+  transform: translateX(-50%);
+  opacity: 1;
+  animation: slideFadeIn 0.6s ease forwards;
+}
+
+/* 炫酷动画 */
+@keyframes slideFadeIn {
+  0% {
+    transform: translate(-50%, -120%) scale(0.8);
+    opacity: 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    transform: translate(-50%, 10%) scale(1.05);
+    opacity: 1;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* 悬停炫光效果 */
+.nav:hover {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 255, 255, 0.2);
+  transform: translateX(-50%) scale(1.02);
+}
+
+/* 内部元素过渡 */
+.nav * {
+  transition: all 0.3s ease;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .beijing {
@@ -1463,4 +1696,71 @@ body::before {
   opacity: 0;
   transform: translateY(-20px); /* 页面向上滑出 */
 }
+.bzhi {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+.bzhi span {
+  position: absolute;
+  top: -25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  font-size: 100px;
+  z-index: 10;
+  color: #435af0;
+  position: relative;
+  z-index: -1;
+}
+
+.scroll-indicator-icon {
+  position: fixed; /* 固定位置，不随滚动移动 */
+  bottom: 30px; /* 距离底部30px */
+  left: 50%; /* 水平居中 */
+  transform: translateX(-50%); /* 水平居中调整 */
+  z-index: 1000; /* 确保在其他内容上方 */
+  color: #ff6f91; /* 设置SVG颜色，与进度条呼应 */
+  opacity: 0.8; /* 稍微透明 */
+  transition: all 0.3s ease; /* 平滑过渡效果 */
+  pointer-events: none; /* 不干扰鼠标事件 */
+}
+
+.scroll-icon {
+  position: absolute;
+  bottom: 100px;
+  left: 45%;
+  width: 150px !important;
+  height: 150px !important;
+  animation: bounce 2s infinite;
+}
+
+/* 弹跳动画 */
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* 当页面滚动时改变样式 */
+body.scrolled .scroll-icon {
+  opacity: 1;
+  transform: translateX(-50%) scale(1.1);
+}
+.jiange{
+  height: 100px;
+}
 </style>
+

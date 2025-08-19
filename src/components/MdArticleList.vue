@@ -38,7 +38,7 @@
          v-for="article in filteredArticles" 
          :key="article.id"
          class="article-card"
-         @click="viewArticle(article.id)"
+         @click="viewArticle(article)"
        >
          <!-- 文章封面 -->
          <div class="article-cover">
@@ -92,7 +92,7 @@ import { useRouter } from 'vue-router'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { mdFiles, loadAllMdFiles, searchMdFiles, getMdFilesByTag } from '@/utils/mdLoader'
+import { mdFiles, loadAllMdFiles, searchMdFiles, getMdFilesByTag, generateFileIdFromTitle } from '@/utils/mdLoader'
 
 const router = useRouter()
 const searchQuery = ref('')
@@ -149,8 +149,10 @@ function formatDate(dateString: string): string {
 }
 
 // 查看文章
-function viewArticle(id: string) {
-  router.push(`/article/${id}`)
+function viewArticle(article: { id: string; title: string }) {
+  // 使用文章标题作为路由参数，如果标题为空则使用ID
+  const titleForUrl = article.title ? generateFileIdFromTitle(article.title) : article.id;
+  router.push(`/article/${titleForUrl}`)
   // 自动回到顶部
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }

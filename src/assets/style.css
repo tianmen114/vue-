@@ -1,0 +1,20 @@
+/* src/assets/nprogress-anime.css */
+
+#nprogress .bar {
+  height: 5px;
+  background: linear-gradient(90deg, #ff6ec4, #7873f5, #42d1f5); /* 粉紫-蓝渐变 */
+  box-shadow: 0 0 10px #ff6ec4, 0 0 5px #42d1f5;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 15px #ff6ec4, 0 0 10px #42d1f5;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: #ff6ec4;
+  border-left-color: #42d1f5;
+}
+
+#nprogress .spinner {
+  display: none; /* 可隐藏旋转小圈 */
+}
