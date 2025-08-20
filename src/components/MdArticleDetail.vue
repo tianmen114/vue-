@@ -1,5 +1,5 @@
 <template>
-  <div class="guodu">
+  <div class="guodu" ref="guoduRef">
     <div class="md-article-detail">
       <div v-if="article" class="article-container">
         <!-- 文章头部 -->
@@ -126,7 +126,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from "vue";
+import { ref, computed, onMounted, watch, nextTick, onBeforeUnmount } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { marked } from "marked";
 import { Button } from "@/components/ui/button";
@@ -139,6 +139,7 @@ const router = useRouter();
 const article = ref<any>(null);
 const currentTheme = ref("pink");
 const url = ref("");
+const guoduRef = ref<HTMLDivElement | null>(null);
 
 // 图片放大相关
 const showImageModal = ref(false);
@@ -576,6 +577,7 @@ onMounted(() => {
   addCopyFunction();
   addImageModalFunction();
   addExpandFunction();
+
 });
 
 // 路由变化重新加载文章

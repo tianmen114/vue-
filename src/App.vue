@@ -1,4 +1,5 @@
 <template>
+  <loading/>
   <motion.div id="scroll-indicator" :style="scrollIndicator" />
   <BackToTop
     :threshold="200"

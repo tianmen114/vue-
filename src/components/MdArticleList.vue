@@ -150,11 +150,10 @@ function formatDate(dateString: string): string {
 
 // 查看文章
 function viewArticle(article: { id: string; title: string }) {
-  // 使用文章标题作为路由参数，如果标题为空则使用ID
-  const titleForUrl = article.title ? generateFileIdFromTitle(article.title) : article.id;
-  router.push(`/article/${titleForUrl}`)
+  // 只使用ID作为路由参数，不依赖标题
+  router.push(`/article/${article.id}`);
   // 自动回到顶部
-  window.scrollTo({ top: 0, behavior: 'smooth' })
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // 选择标签

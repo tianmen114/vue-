@@ -11,11 +11,11 @@ import picture from '@/components/picture.vue'
 import dongman from '@/components/dongman.vue'
 
 const routes = [
-  { path: '/', redirect: '/' },
+  { path: '/', redirect: '/home' },
   { path: '/home', name: 'home', component: home },
   { path: '/search', component: search },
   { path: '/picture', component: picture },
-  { path: '/article/:title', name: 'article', component: MdArticleDetail, props: true },
+  { path: '/article/:title', name: 'article', component: MdArticleDetail, props: false },
   { path: '/archive', name: 'archive', component: () => import('@/components/Archive.vue') },
   { path: '/about', name: 'about', component: () => import('@/components/About.vue') },
   { path: '/dongman', name: 'dongman', component: dongman } // 修正 name

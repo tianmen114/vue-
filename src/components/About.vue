@@ -4,7 +4,8 @@
       <h1>关于我</h1>
       <div class="content">
         <p>欢迎来到我的个人网站！</p>
-        <p>这里是我分享技术、生活和想法的地方。</p>
+        <p>这里是我分享技术、生活和想法的地方。</p><p>项目:</p>
+        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=tianmen114&layout=compact" alt="">
       </div>
 
       <!-- 友链板块 -->

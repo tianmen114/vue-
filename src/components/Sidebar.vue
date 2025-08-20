@@ -67,6 +67,9 @@
             </svg>
           </a>
         </section>
+        <section>
+        <div class="card ip-info">        <img src="./ui/github-user-contribution.svg" alt=""></img></div>
+        </section>
         <!-- IP 信息板块 -->
         <section class="card ip-info">
           <div class="ip-line">

@@ -38,6 +38,7 @@
     "swiper": "^11.2.10",
     "tailwind-merge": "^3.3.1",
     "twikoo": "^1.6.44",
+    "vanilla-tilt": "^1.8.1",
     "vite-plugin-oh-my-live2d": "^0.19.3",
     "vue": "^3.5.18",
     "vue-lazyload": "^3.0.0",
